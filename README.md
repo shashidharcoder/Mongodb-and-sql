@@ -133,6 +133,43 @@ FROM Worker
 GROUP BY DEPARTMENT
 ORDER BY Worker_Count DESC;
 
+
+#10-2-2025
+-- Create vitBhopal Table
+CREATE TABLE vitBhopal (
+    id INT PRIMARY KEY, 
+    name VARCHAR(20) NOT NULL,
+    department VARCHAR(25) NOT NULL
+);
+
+-- Insert Data into vitBhopal
+INSERT INTO vitBhopal VALUES 
+    (104, 'Karthik', 'cs'),
+    (103, 'Arun', 'cs');
+
+-- Create vit Table
+CREATE TABLE vit (
+    id INT PRIMARY KEY, 
+    name VARCHAR(20) NOT NULL,
+    college VARCHAR(25) NOT NULL
+);
+
+-- Insert Data into vit
+INSERT INTO vit VALUES 
+    (104, 'Karthik', 'chennai'),
+    (103, 'Arun', 'bhopal');
+
+-- Select all records from vit
+SELECT * FROM vit;
+
+-- Select all records from vitBhopal
+SELECT * FROM vitBhopal;
+
+-- Corrected Query: Fetch WinnerOfTheYear using IN instead of =
+SELECT name AS WinnerOfTheYear 
+FROM vitBhopal
+WHERE id IN (SELECT id FROM vit WHERE college = 'bhopal');
+
 -- 5. Show one row twice in results from the Worker table
 (SELECT * FROM Worker WHERE WORKER_ID = 1)
 UNION ALL
