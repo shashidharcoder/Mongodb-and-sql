@@ -172,6 +172,62 @@ WHERE id IN (SELECT id FROM vit WHERE college = 'bhopal');
 
 -- 5. Show one row twice in results from the Worker table
 (SELECT * FROM Worker WHERE WORKER_ID = 1)
+
+
 UNION ALL
 (SELECT * FROM Worker WHERE WORKER_ID = 1);
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+1. Write an SQL query to print all Worker details from the Worker table order by FIRST_NAME Ascending.
+SELECT * 
+FROM Worker 
+ORDER BY FIRST_NAME ASC;
 
+2.Write an SQL query to print all Worker details from the Worker table order by FIRST_NAME Ascending and DEPARTMENT Descending.
+SELECT * 
+FROM Worker 
+ORDER BY FIRST_NAME ASC, DEPARTMENT DESC;
+
+3.Write an SQL query to print details of workers excluding first names, “Vipul” and “Satish” from Worker table.
+SELECT * 
+FROM Worker 
+WHERE FIRST_NAME NOT IN ('Vipul', 'Satish');
+
+4. Write an SQL query to print details of the Workers whose FIRST_NAME ends with ‘h’ and contains six alphabets.
+SELECT * 
+FROM Worker 
+WHERE FIRST_NAME LIKE '_____h';
+
+5. Write an SQL query to fetch the count of employees working in the department ‘Admin’.
+SELECT COUNT(*) AS EmployeeCount
+FROM Worker
+WHERE DEPARTMENT = 'Admin';
+
+6.Write an SQL query to fetch worker names with salaries >= 50000 and <= 100000.
+SELECT FIRST_NAME, LAST_NAME
+FROM Worker
+WHERE SALARY BETWEEN 50000 AND 100000;
+
+7.Write an SQL query to fetch the no. of workers for each department in the descending order.
+SELECT DEPARTMENT, COUNT(*) AS WorkerCount
+FROM Worker
+GROUP BY DEPARTMENT
+ORDER BY WorkerCount DESC;
+
+8.Write an SQL query to determine the 5th highest salary without using TOP or limit method.
+SELECT SALARY 
+FROM (
+    SELECT DISTINCT SALARY 
+    FROM Worker 
+    ORDER BY SALARY DESC
+) AS SalaryRank 
+OFFSET 4 ROWS FETCH NEXT 1 ROW ONLY;
+
+9.Write an SQL query to fetch the list of employees with the same salary.
+SELECT * 
+FROM Worker 
+WHERE SALARY IN (
+    SELECT SALARY 
+    FROM Worker 
+    GROUP BY SALARY 
+    HAVING COUNT(*) > 1
+);
