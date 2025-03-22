@@ -50,3 +50,16 @@
     } 
   }
 ])
+
+14. db.sales.find().sort({ price: 1 }).skip(1).limit(1)
+
+15. db.sales.aggregate([
+  { 
+    $group: { 
+      _id: "$item", 
+      totalQuantity: { $sum: "$quantity" }, 
+      averagePrice: { $avg: "$price" }  
+    } 
+  }
+])
+
